@@ -1,0 +1,4 @@
+br\edu\univesp\model\Cidade.class
+br\edu\univesp\testes\CriaTabelas.class
+br\edu\univesp\model\Estado.class
+br\edu\univesp\servlet\OiMundoServlet.class
