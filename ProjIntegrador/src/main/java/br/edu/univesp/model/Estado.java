@@ -1,7 +1,6 @@
 package br.edu.univesp.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,12 +33,26 @@ public class Estado implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String nome;
 
-	public void adicionarCidade(Cidade cidade) {
-		if (this.cidades == null) {
-			this.cidades = new ArrayList<>();
+	public void adicionarCidade(Cidade novaCidade) {
+		// Verificar se a cidade já existe na lista
+		boolean cidadeExistente = false;
+		for (Cidade cidade : cidades) {
+			if (cidade.getNome().equals(novaCidade.getNome())) {
+				cidadeExistente = true;
+				break;
+			}
 		}
-		this.cidades.add(cidade);
-		cidade.setEstado(this); // Define o estado desta cidade como o estado atual
+
+		// Se a cidade já existe, exibir uma mensagem ou lançar uma exceção
+		if (cidadeExistente) {
+			System.out.println("A cidade já existe no estado.");
+			// Ou, se preferir, lançar uma exceção
+			// throw new IllegalArgumentException("A cidade já existe no estado.");
+		} else {
+			// Se a cidade não existe, adicionar à lista
+			cidades.add(novaCidade);
+			System.out.println("Cidade adicionada com sucesso.");
+		}
 	}
 
 	public List<Cidade> getCidades() {

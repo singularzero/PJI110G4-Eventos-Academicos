@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroEstadoBean.salvar}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro Estados</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Cadastro Estados</h1>
+
+		<h:form id="frm">
+			<h:messages showDetail="false" showSummary="true" />
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Nome" />
+				<h:inputText size="60" value="#{cadastroEstadoBean.estado.nome}"
+					label="Nome" />
+
+				<h:outputLabel value="Sigla" />
+				<h:inputText size="5" value="#{cadastroEstadoBean.estado.sigla}"
+					label="Sigla" />
+
+				<h:outputLabel />
+				<h:commandButton value="Salvar"
+					action="#{cadastroEstadoBean.salvar}" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

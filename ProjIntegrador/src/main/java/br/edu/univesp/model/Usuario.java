@@ -33,19 +33,19 @@ public class Usuario implements Serializable {
 	private String rg;
 
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "idCidade")
+	@JoinColumn(nullable = false)
 	private Cidade cidade;
 
-	@Column(length = 50, nullable = false)
+	@Column(length = 50, nullable = true)
 	private String rua;
 
-	@Column(length = 10, nullable = false)
+	@Column(length = 10, nullable = true)
 	private String numero;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 30, nullable = true)
 	private String celular;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 30, nullable = true)
 	private String email;
 
 	public Cidade getCidade() {

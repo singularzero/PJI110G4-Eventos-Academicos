@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,19 +28,56 @@ public class Turma implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idTurma;
-	
+
+	@Column(length = 20, nullable = true)
+	private String nome;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Curso curso;
+
 	@Column(length = 20, nullable = false)
 	private String periodo;
-	
+
 	@Column(nullable = false)
 	private int serie;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "turma")
 	private List<Aluno> alunos;
+
+	public void adicionarAluno(Aluno novoAluno) {
+		// Verificar se o aluno já existe na lista
+		boolean alunoExistente = false;
+		for (Aluno aluno : alunos) {
+			if (aluno.getUsuario().getNome().equals(novoAluno.getUsuario().getNome())) {
+				alunoExistente = true;
+				break;
+			}
+		}
+
+		// Se o aluno já existe, exibir uma mensagem ou lançar uma exceção
+		if (alunoExistente) {
+			System.out.println("O aluno já existe na turma.");
+			// Ou, se preferir, lançar uma exceção
+			// throw new IllegalArgumentException("O aluno já existe na turma.");
+		} else {
+			// Se o aluno não existe, adicionar à lista
+			alunos.add(novoAluno);
+			System.out.println("Aluno adicionada com sucesso.");
+		}
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public Long getIdTurma() {
 		return idTurma;
@@ -78,6 +117,14 @@ public class Turma implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class Cidade implements Serializable {
 	private List<Usuario> usuarios;
 
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "idEstado")
+	@JoinColumn(nullable = false)
 	private Estado estado;
 
 	public void adicionarUsuario(Usuario usuario) {
@@ -42,7 +42,19 @@ public class Cidade implements Serializable {
 			this.usuarios = new ArrayList<>();
 		}
 		this.usuarios.add(usuario);
-		usuario.setCidade(this);// Define o estado desta cidade como o estado atual
+		usuario.setCidade(this);// Define a cidade deste usuario como a cidade atual
+	}
+
+	public void listarUsuarios() {
+		if (usuarios != null) {
+			for (Usuario usuario : usuarios) {
+				System.out.println("Nome: " + usuario.getNome() + ", Email: " + usuario.getEmail() + " CPF: "
+						+ usuario.getCpf() + ", RG: " + usuario.getRg());
+				// Adicione outros atributos que deseja listar aqui
+			}
+		} else {
+			System.out.println("A lista de usuários está vazia.");
+		}
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -92,6 +104,13 @@ public class Cidade implements Serializable {
 			return false;
 		Cidade other = (Cidade) obj;
 		return Objects.equals(idCidade, other.idCidade);
+	}
+
+	@Override
+	public String toString() {
+		return "Cidade [idCidade=" + idCidade + ", nome=" + nome + ", usuarios=" + usuarios + ", estado=" + estado
+				+ ", getUsuarios()=" + getUsuarios() + ", getIdCidade()=" + getIdCidade() + ", getNome()=" + getNome()
+				+ ", getEstado()=" + getEstado() + ", hashCode()=" + hashCode() + "]";
 	}
 
 }

@@ -36,7 +36,7 @@ public class Aluno implements Serializable {
 	private Curso curso;
 
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "turma_idTurma")
+	@JoinColumn(nullable = false)
 	private Turma turma;
 
 	public Long getIdAluno() {
