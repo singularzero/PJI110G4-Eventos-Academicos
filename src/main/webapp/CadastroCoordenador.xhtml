@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">>
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroCoordenadorBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro Coordenadoress</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Cadastro Coordenadores</h1>
+
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<h:panelGrid columns="2" border="0">
+
+				<p:outputLabel value="Usuario:" for="usuario" />
+				<p:selectOneMenu
+					value="#{cadastroCoordenadorBean.coordenador.usuario}" id="usuario"
+					filter="true" filterMatchMode="contains">
+					<f:selectItem itemLabel="Selecione um usuario"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadastroCoordenadorBean.todosUsuarios}"
+						var="usuario" itemValue="#{usuario}" itemLabel="#{usuario.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Data de cadastro:" for="dataCadastro" />
+				<p:calendar id="dataCadastro" size="12" pattern="dd/MM/yyyy"
+					timeZone="America/Sao_Paulo"
+					value="#{cadastroCoordenadorBean.coordenador.dataCadastro}">
+				</p:calendar>
+
+
+
+
+				<h:selectBooleanCheckbox id="liberado"
+					value="#{cadastroCoordenadorBean.coordenador.liberado}" />
+				<h:outputLabel value="Liberado" for="liberado" />
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					action="#{cadastroCoordenadorBean.salvar}" icon="ui-icon-disk"
+					update="@form" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

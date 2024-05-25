@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{consultaProfessoresBean.consultar}" />
+		<o:viewParam name="id" value="#{cadastroProfessorBean.professor}" />
+		<f:viewAction action="#{cadastroProfessorBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Consulta Professores</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Consulta Professores</h1>
+
+		<h:form id="frm">
+			<p:dataTable value="#{consultaProfessoresBean.professores}"
+				var="professor" border="1" cellspacing="0" cellpadding="2"
+				paginator="true" rows="5" paginatorPosition="bottom">
+
+				<p:column headerText="Nome" sortBy="#{professor.usuario.nome}">
+					<h:outputText value="#{professor.usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF">
+					<h:outputText value="#{professor.usuario.cpf}" />
+				</p:column>
+
+				<p:column headerText="RG">
+					<h:outputText value="#{professor.usuario.rg}" />
+				</p:column>
+
+				<p:column>
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/CadastroProfessor">
+						<f:param name="id" value="#{professor.idProfessor}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

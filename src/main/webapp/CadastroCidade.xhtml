@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroCidadeBean.prepararCadastro}" />		
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro Cidades</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Cadastro Cidades</h1>
+
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<h:panelGrid columns="2" border="0">
+
+				<p:outputLabel value="Nome:" for="nome" />
+				<p:inputText size="60" maxlength="60" id="nome"
+					value="#{cadastroCidadeBean.cidade.nome}" />
+
+				<p:outputLabel value="Estado" for="estado" />
+				<p:selectOneMenu value="#{cadastroCidadeBean.cidade.estado}"
+					id="estado" filter="true" filterMatchMode="contains">
+					<f:selectItem itemLabel="Selecione um Estado"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadastroCidadeBean.todosEstados}"
+						var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}" />
+				</p:selectOneMenu>
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					action="#{cadastroCidadeBean.salvar}" icon="ui-icon-disk"
+					update="@form" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
